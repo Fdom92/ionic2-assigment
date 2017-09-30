@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { ModalController, NavController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/toPromise';
 

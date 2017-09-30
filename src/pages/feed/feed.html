@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list [virtualScroll]="users">
+  <ion-list [virtualScroll]="users" [approxItemHeight]="'50px'">
     <ion-item *virtualItem="let user" (click)="showDetail(user)">
       <ion-avatar item-start>
         <img [src]="user.Avatar">
