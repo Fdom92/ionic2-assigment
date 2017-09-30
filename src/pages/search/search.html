@@ -7,5 +7,31 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Search Page</h2>
+  <ion-list *ngIf="selectedUser" no-lines>
+    <ion-item>
+      <ion-avatar item-start>
+        <img [src]="selectedUser.Avatar">
+      </ion-avatar>
+    </ion-item>
+    <ion-item>
+      <h2>Full name</h2>
+      <p>{{ selectedUser.FullName}}</p>
+    </ion-item>
+    <ion-item>
+      <h2>User bio</h2>
+      <p>{{ selectedUser.Bio}}</p>
+    </ion-item>
+    <ion-item>
+      <h2>User company</h2>
+      <p>{{ selectedUser.Company}}</p>
+    </ion-item>
+    <ion-item>
+      <h2>User location</h2>
+      <p>{{ selectedUser.Location}}</p>
+    </ion-item>
+    <ion-item>
+      <h2>User website</h2>
+      <p>{{ selectedUser.Website}}</p>
+    </ion-item>
+  </ion-list>
 </ion-content>
