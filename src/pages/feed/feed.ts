@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { ModalController, NavController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
+import 'rxjs/add/operator/toPromise';
 
 import { AppState } from '../../services/app-state';
 import { User } from '../../models/user';
@@ -26,20 +27,38 @@ export class FeedPage {
     this.http.get('https://api.github.com/users').subscribe((users: Array<any>) => {
       users.map(user => {
         this.http.get(user.url).subscribe((userData: any) => {
-          let singleUser: User = {
-            Avatar   : userData.avatar_url,
-            FullName : userData.name         || 'Not provided',
-            Bio      : userData.bio          || 'Not provided',
-            Company  : userData.company      || 'Not provided',
-            Location : userData.location     || 'Not provided',
-            Website  : userData.blog         || undefined,
-            Login    : userData.login        || 'Not provided',
-            Repos    : userData.public_repos || 0
-          };
-          this.users.push(singleUser);
+          this.users.push(this.createUser(userData));
         });
       })
     });
+  }
+
+  doInfinite(): Promise<any> {
+    return this.http.get('https://api.github.com/users?since=' + this.users.length)
+      .toPromise()
+      .then((users: Array<any>) => {
+        return users.map(user => {
+          this.http.get(user.url).toPromise()
+          .then((userData: any) => {
+            this.users.push(this.createUser(userData));
+          })
+          .catch(error => console.log(error));
+        })
+    })
+    .catch(error => console.log(error));
+  }
+
+  createUser(userData): User {
+    return {
+      Avatar   : userData.avatar_url,
+      FullName : userData.name         || 'Not provided',
+      Bio      : userData.bio          || 'Not provided',
+      Company  : userData.company      || 'Not provided',
+      Location : userData.location     || 'Not provided',
+      Website  : userData.blog         || undefined,
+      Login    : userData.login        || 'Not provided',
+      Repos    : userData.public_repos || 0
+    };
   }
 
   showDetail(user) {

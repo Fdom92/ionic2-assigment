@@ -7,12 +7,15 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let user of users" (click)="showDetail(user)">
+  <ion-list [virtualScroll]="users">
+    <ion-item *virtualItem="let user" (click)="showDetail(user)">
       <ion-avatar item-start>
         <img [src]="user.Avatar">
       </ion-avatar>
       <h2 [myHighlight]="user.Repos">{{ user.Login }}</h2>
     </ion-item>
   </ion-list>
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
