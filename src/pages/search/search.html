@@ -18,20 +18,20 @@
       <p>{{ selectedUser.FullName}}</p>
     </ion-item>
     <ion-item>
-      <h2>User bio</h2>
+      <h2>Biography</h2>
       <p>{{ selectedUser.Bio}}</p>
     </ion-item>
     <ion-item>
-      <h2>User company</h2>
+      <h2>Company</h2>
       <p>{{ selectedUser.Company}}</p>
     </ion-item>
     <ion-item>
-      <h2>User location</h2>
+      <h2>Location</h2>
       <p>{{ selectedUser.Location}}</p>
     </ion-item>
-    <ion-item>
-      <h2>User website</h2>
-      <p>{{ selectedUser.Website}}</p>
+    <ion-item *ngIf="selectedUser.Website">
+      <h2>Website</h2>
+      <a [href]="selectedUser.Website">{{ selectedUser.Website }}</a>
     </ion-item>
   </ion-list>
 </ion-content>

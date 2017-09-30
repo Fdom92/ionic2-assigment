@@ -12,7 +12,7 @@
       <ion-avatar item-start>
         <img [src]="user.Avatar">
       </ion-avatar>
-      <h2>{{ user.Login }}</h2>
+      <h2 [myHighlight]="user.Repos">{{ user.Login }}</h2>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 import { FeedPage } from '../pages/feed/feed';
 import { SearchPage } from '../pages/search/search';
 import { TabsPage } from '../pages/tabs/tabs';
+import { HighlightDirective } from '../directives/highlight.directive';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,7 +22,8 @@ import { UserActions } from '../actions/user.actions';
     MyApp,
     FeedPage,
     SearchPage,
-    TabsPage
+    TabsPage,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,

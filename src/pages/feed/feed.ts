@@ -32,7 +32,7 @@ export class FeedPage {
             Bio      : userData.bio          || 'Not provided',
             Company  : userData.company      || 'Not provided',
             Location : userData.location     || 'Not provided',
-            Website  : userData.blog         || 'Not provided',
+            Website  : userData.blog         || undefined,
             Login    : userData.login        || 'Not provided',
             Repos    : userData.public_repos || 0
           };
