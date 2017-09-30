@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from "@angular/core";
+import { Component } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
 import { ModalController, NavController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 
@@ -12,38 +13,33 @@ import { UserActions } from '../../actions/user.actions';
 })
 export class FeedPage {
 
-  users : Array<User> = [
-    {
-      Avatar   : 'http://scem-program.user.jacobs-university.de/wp-content/uploads/2014/12/user_male2-256.png',
-      FullName : 'User 1',
-      Bio      : 'Bio 1',
-      Company  : 'Company 1',
-      Location : 'Location 1',
-      Website  : 'Website 1'
-    },
-    {
-      Avatar   : 'http://scem-program.user.jacobs-university.de/wp-content/uploads/2014/12/user_male2-256.png',
-      FullName : 'User 2',
-      Bio      : 'Bio 2',
-      Company  : 'Company 2',
-      Location : 'Location 2',
-      Website  : 'Website 2'
-    },
-    {
-      Avatar   : 'http://scem-program.user.jacobs-university.de/wp-content/uploads/2014/12/user_male2-256.png',
-      FullName : 'User 3',
-      Bio      : 'Bio 3',
-      Company  : 'Company 3',
-      Location : 'Location 3',
-      Website  : 'Website 3'
-    }
-  ];
+  users : Array<User> = [];
 
   constructor(private navCtrl: NavController,
               private store: Store<AppState>,
-              private modalCtrl: ModalController,
-              private userActions: UserActions) {
+              private userActions: UserActions,
+              private http: HttpClient) {
 
+  }
+
+  ionViewDidEnter() {
+    this.http.get('https://api.github.com/users').subscribe((users: Array<any>) => {
+      users.map(user => {
+        this.http.get(user.url).subscribe((userData: any) => {
+          let singleUser: User = {
+            Avatar   : userData.avatar_url,
+            FullName : userData.name         || 'Not provided',
+            Bio      : userData.bio          || 'Not provided',
+            Company  : userData.company      || 'Not provided',
+            Location : userData.location     || 'Not provided',
+            Website  : userData.blog         || 'Not provided',
+            Login    : userData.login        || 'Not provided',
+            Repos    : userData.public_repos || 0
+          };
+          this.users.push(singleUser);
+        });
+      })
+    });
   }
 
   showDetail(user) {

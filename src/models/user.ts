@@ -5,4 +5,6 @@ export interface User {
   Company  : string;
   Location : string;
   Website  : string;
+  Login    : string;
+  Repos    : number;
 }

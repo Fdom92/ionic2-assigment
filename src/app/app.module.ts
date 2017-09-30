@@ -1,8 +1,10 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
+import {HttpClientModule} from '@angular/common/http';
 
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+
+import { MyApp } from './app.component';
 import { FeedPage } from '../pages/feed/feed';
 import { SearchPage } from '../pages/search/search';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -23,6 +25,7 @@ import { UserActions } from '../actions/user.actions';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     StoreModule.provideStore({ user: UserReducer })
   ],
